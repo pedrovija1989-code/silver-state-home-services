@@ -1,6 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AirVent, BadgeDollarSign, Flame, MapPin, ShieldCheck, Siren, Waves, Wrench, Zap } from 'lucide-react';
 const HouseScene = dynamic(() => import('./house-scene'), { ssr: false });
 
@@ -22,8 +22,20 @@ const issues: Record<string,{service:string,detail:string,image:string}> = {
 };
 
 export default function Home() {
-  const [menuOpen,setMenuOpen]=useState(false); const [issue,setIssue]=useState('Leaking pipe');
+  const [menuOpen,setMenuOpen]=useState(false); const [issue,setIssue]=useState('Leaking pipe'); const [scrollProgress,setScrollProgress]=useState(0);
+  useEffect(()=>{
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets=document.querySelectorAll('.section-head,.service-card,.emergency-inner,.fixture-art,.why-copy,.diagnostic-grid>div,.issue-panel,.review-summary,.review-grid blockquote,.areas-grid>div,.area-list span,.book-grid>div,.book form');
+    targets.forEach((element,index)=>{element.classList.add('scroll-reveal');(element as HTMLElement).style.setProperty('--reveal-delay',`${Math.min(index%6,4)*70}ms`)});
+    document.documentElement.classList.add('scroll-effects-ready');
+    const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target)}}),{threshold:reduced?0:.13,rootMargin:'0px 0px -7% 0px'});
+    targets.forEach(target=>observer.observe(target));
+    const update=()=>{const max=document.documentElement.scrollHeight-window.innerHeight;setScrollProgress(max>0?(window.scrollY/max)*100:0)};
+    update();window.addEventListener('scroll',update,{passive:true});
+    return()=>{observer.disconnect();window.removeEventListener('scroll',update);document.documentElement.classList.remove('scroll-effects-ready')};
+  },[]);
   return <main>
+    <div className="scroll-progress" style={{width:`${scrollProgress}%`}} aria-hidden="true"/>
     <section className="hero" id="home"><nav className="nav shell" aria-label="Main navigation"><a className="brand" href="#home" aria-label="Silver State Home Services home"><span className="brand-mark">S</span><span><b>SILVER STATE</b><small>HOME SERVICES</small></span></a><button className="menu-button" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle menu">☰</button><div className={`nav-links ${menuOpen?'open':''}`}><a href="#services">Services</a><a href="#why-us">Why Us</a><a href="#areas">Service Areas</a><a href="#reviews">Reviews</a></div><div className="nav-actions"><a className="phone" href="tel:+17025550147">(702) 555-0147</a><a className="button button-small" href="#book">Book Service</a></div></nav>
       <div className="hero-grid shell"><div className="hero-copy"><div className="eyebrow"><span/> LAS VEGAS&apos; TRUSTED HOME EXPERTS</div><h1>Your home runs better with the <em>right team.</em></h1><p>Professional plumbing, HVAC and electrical solutions from local technicians who treat your home like their own.</p><div className="hero-actions"><a className="button" href="#book">Book Service <span>→</span></a><a className="text-button" href="tel:+17025550147"><i>●</i> Call (702) 555-0147</a></div><div className="trust-row"><span>✓ Licensed &amp; Insured</span><span>✓ Same-Day Service</span><span>✓ Upfront Pricing</span></div></div><div className="scene-wrap"><HouseScene/><div className="scene-instruction"><span className="cursor-icon">↖</span><div><b>EXPLORE YOUR HOME</b><small>Move your cursor over the house</small></div></div></div></div><div className="hero-glow"/>
     </section>
