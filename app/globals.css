@@ -23,3 +23,7 @@ h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(40px,4.3vw,64px);
 @media(min-width:901px){.scene-wrap{left:calc((100vw - min(1180px,calc(100vw - 48px)))/-2);right:calc((100vw - min(1180px,calc(100vw - 48px)))/-2);width:auto}.house-photo{object-position:center center}.hero:before{background:linear-gradient(90deg,rgba(4,20,27,.96) 0%,rgba(4,20,27,.9) 23%,rgba(4,20,27,.65) 41%,rgba(4,20,27,.22) 61%,rgba(4,20,27,.04) 100%)}}
 @media(max-width:900px){.scene-wrap{left:calc((100vw - min(1180px,calc(100vw - 48px)))/-2);right:calc((100vw - min(1180px,calc(100vw - 48px)))/-2);width:auto}}
 @media(max-width:560px){.scene-wrap{left:-14px;right:-14px;width:auto}}
+
+/* Authentic plumbing-plan section and professional service icons */
+.blueprint{background-color:#f3efe7;background-image:linear-gradient(rgba(246,243,236,.72),rgba(246,243,236,.72)),url('/plumbing-blueprint.png');background-size:cover;background-position:center;background-attachment:fixed}.blueprint:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(244,241,234,.3),transparent 30%,transparent 72%,rgba(244,241,234,.45));pointer-events:none}.service-icon svg{width:25px;height:25px;stroke:currentColor}.service-card:hover .service-icon{border-color:rgba(255,255,255,.35);color:#65c8ec;background:rgba(48,151,188,.1)}
+@media(max-width:900px){.blueprint{background-attachment:scroll}}

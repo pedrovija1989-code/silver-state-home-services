@@ -1,15 +1,16 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import { AirVent, Flame, Siren, Waves, Wrench, Zap } from 'lucide-react';
 const HouseScene = dynamic(() => import('./house-scene'), { ssr: false });
 
 const services = [
-  { icon:'⌁', name:'Plumbing', text:'Repairs, repipes, fixtures and complete plumbing care.', tag:'Most requested' },
-  { icon:'❄', name:'HVAC', text:'Cooling, heating, maintenance and energy-smart installations.' },
-  { icon:'ϟ', name:'Electrical', text:'Safe repairs, panels, outlets and expert troubleshooting.' },
-  { icon:'◉', name:'Water Heaters', text:'Reliable hot water repair, replacement and installation.' },
-  { icon:'↯', name:'Drain Cleaning', text:'Fast, clean solutions for stubborn clogs and slow drains.' },
-  { icon:'24', name:'Emergency Service', text:'Urgent help when your home simply cannot wait.' },
+  { icon:Wrench, name:'Plumbing', text:'Repairs, repipes, fixtures and complete plumbing care.', tag:'Most requested' },
+  { icon:AirVent, name:'HVAC', text:'Cooling, heating, maintenance and energy-smart installations.' },
+  { icon:Zap, name:'Electrical', text:'Safe repairs, panels, outlets and expert troubleshooting.' },
+  { icon:Flame, name:'Water Heaters', text:'Reliable hot water repair, replacement and installation.' },
+  { icon:Waves, name:'Drain Cleaning', text:'Fast, clean solutions for stubborn clogs and slow drains.' },
+  { icon:Siren, name:'Emergency Service', text:'Urgent help when your home simply cannot wait.' },
 ];
 const issues: Record<string,{service:string,detail:string}> = {
   'Leaking pipe':{service:'Plumbing Repair',detail:'A fast inspection can prevent water damage and costly repairs.'},
@@ -27,7 +28,7 @@ export default function Home() {
       <div className="hero-grid shell"><div className="hero-copy"><div className="eyebrow"><span/> LAS VEGAS&apos; TRUSTED HOME EXPERTS</div><h1>Your home runs better with the <em>right team.</em></h1><p>Professional plumbing, HVAC and electrical solutions from local technicians who treat your home like their own.</p><div className="hero-actions"><a className="button" href="#book">Book Service <span>→</span></a><a className="text-button" href="tel:+17025550147"><i>●</i> Call (702) 555-0147</a></div><div className="trust-row"><span>✓ Licensed &amp; Insured</span><span>✓ Same-Day Service</span><span>✓ Upfront Pricing</span></div></div><div className="scene-wrap"><HouseScene/><div className="scene-instruction"><span className="cursor-icon">↖</span><div><b>EXPLORE YOUR HOME</b><small>Move your cursor over the house</small></div></div></div></div><div className="hero-glow"/>
     </section>
 
-    <section className="blueprint" id="services"><div className="pipe-line pipe-a"/><div className="pipe-line pipe-b"/><div className="shell section-head"><div><div className="eyebrow dark"><span/> COMPLETE HOME CARE</div><h2>Everything your home needs.<br/><em>One trusted team.</em></h2></div><p>From the pipes behind your walls to the air moving through every room, our local experts keep the systems you depend on working beautifully.</p></div><div className="services-grid shell">{services.map((s,i)=><article className="service-card" key={s.name}><span className="service-number">0{i+1}</span><span className="service-icon">{s.icon}</span>{s.tag&&<small>{s.tag}</small>}<h3>{s.name}</h3><p>{s.text}</p><a href="#book">Explore service <b>→</b></a></article>)}</div></section>
+    <section className="blueprint" id="services"><div className="pipe-line pipe-a"/><div className="pipe-line pipe-b"/><div className="shell section-head"><div><div className="eyebrow dark"><span/> COMPLETE HOME CARE</div><h2>Everything your home needs.<br/><em>One trusted team.</em></h2></div><p>From the pipes behind your walls to the air moving through every room, our local experts keep the systems you depend on working beautifully.</p></div><div className="services-grid shell">{services.map((s,i)=><article className="service-card" key={s.name}><span className="service-number">0{i+1}</span><span className="service-icon"><s.icon size={25} strokeWidth={1.7}/></span>{s.tag&&<small>{s.tag}</small>}<h3>{s.name}</h3><p>{s.text}</p><a href="#book">Explore service <b>→</b></a></article>)}</div></section>
 
     <section className="emergency"><div className="shell emergency-inner"><div className="emergency-mark">24<span>/7</span></div><div><div className="eyebrow"><span/> WHEN MINUTES MATTER</div><h2>Home emergency?<br/><em>We&apos;re ready.</em></h2><p>Water leak, AC failure or electrical concern? Our Las Vegas team is standing by to restore comfort and peace of mind.</p></div><a className="button light" href="tel:+17025550147">Call now <span>→</span></a></div></section>
 
