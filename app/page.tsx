@@ -1,8 +1,8 @@
-'use client';
-import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import { AirVent, BadgeDollarSign, Flame, MapPin, ShieldCheck, Siren, Waves, Wrench, Zap } from 'lucide-react';
-const HouseScene = dynamic(() => import('./house-scene'), { ssr: false });
+import HouseScene from './house-scene';
+
+const asset = (name: string) => `${import.meta.env.BASE_URL}${name}`;
 
 const services = [
   { icon:Wrench, name:'Plumbing', text:'Repairs, repipes, fixtures and complete plumbing care.', tag:'Most requested' },
@@ -13,12 +13,12 @@ const services = [
   { icon:Siren, name:'Emergency Service', text:'Urgent help when your home simply cannot wait.' },
 ];
 const issues: Record<string,{service:string,detail:string,image:string}> = {
-  'Leaking pipe':{service:'Plumbing Repair',detail:'A fast inspection can prevent water damage and costly repairs.',image:'/service-leaking-pipe.png'},
-  'Clogged drain':{service:'Drain Cleaning',detail:'We clear the blockage and check the line for recurring problems.',image:'/service-clogged-drain.png'},
-  'No hot water':{service:'Water Heater Service',detail:'Our technicians diagnose traditional and tankless systems.',image:'/service-water-heater.png'},
-  'Low water pressure':{service:'Whole-Home Diagnosis',detail:'We trace pressure loss from fixtures to the main supply.',image:'/service-water-pressure.png'},
-  'AC not cooling':{service:'HVAC Repair',detail:'Same-day cooling diagnostics for Las Vegas homes.',image:'/service-ac-repair.png'},
-  'Electrical issue':{service:'Electrical Service',detail:'Licensed troubleshooting for safe, dependable power.',image:'/service-electrical.png'},
+  'Leaking pipe':{service:'Plumbing Repair',detail:'A fast inspection can prevent water damage and costly repairs.',image:asset('service-leaking-pipe.png')},
+  'Clogged drain':{service:'Drain Cleaning',detail:'We clear the blockage and check the line for recurring problems.',image:asset('service-clogged-drain.png')},
+  'No hot water':{service:'Water Heater Service',detail:'Our technicians diagnose traditional and tankless systems.',image:asset('service-water-heater.png')},
+  'Low water pressure':{service:'Whole-Home Diagnosis',detail:'We trace pressure loss from fixtures to the main supply.',image:asset('service-water-pressure.png')},
+  'AC not cooling':{service:'HVAC Repair',detail:'Same-day cooling diagnostics for Las Vegas homes.',image:asset('service-ac-repair.png')},
+  'Electrical issue':{service:'Electrical Service',detail:'Licensed troubleshooting for safe, dependable power.',image:asset('service-electrical.png')},
 };
 
 export default function Home() {
@@ -44,7 +44,7 @@ export default function Home() {
 
     <section className="emergency"><div className="shell emergency-inner"><div className="emergency-mark">24<span>/7</span></div><div><div className="eyebrow"><span/> WHEN MINUTES MATTER</div><h2>Home emergency?<br/><em>We&apos;re ready.</em></h2><p>Water leak, AC failure or electrical concern? Our Las Vegas team is standing by to restore comfort and peace of mind.</p></div><a className="button light" href="tel:+17025550147">Call now <span>→</span></a></div></section>
 
-    <section className="why" id="why-us"><div className="shell why-grid"><div className="fixture-art"><img src="/plumber-craftsmanship.png" alt="Professional plumber carefully installing connections beneath a modern kitchen sink"/><div className="work-point point-one"><i/><span><b>Leak-free connection</b><small>Pressure tested before we leave</small></span></div><div className="work-point point-two"><i/><span><b>Code-compliant installation</b><small>Built safely and correctly</small></span></div><div className="work-point point-three"><i/><span><b>Work area protected</b><small>Respect for every home</small></span></div><div className="offer"><b>$49</b><span>Service call<br/><small>APPLIED TO COMPLETED REPAIR</small></span></div></div><div className="why-copy"><div className="eyebrow dark"><span/> THE SILVER STATE STANDARD</div><h2>Craftsmanship you can <em>feel.</em></h2><p className="lead">Straight answers. Respectful technicians. Work that&apos;s built to last.</p><div className="benefits"><div><b><BadgeDollarSign/></b><span><strong>Upfront pricing</strong><small>Know the price before work begins.</small></span></div><div><b><MapPin/></b><span><strong>Local experts</strong><small>Technicians who know Las Vegas homes.</small></span></div><div><b><ShieldCheck/></b><span><strong>Quality guaranteed</strong><small>Licensed, insured and backed by our workmanship promise.</small></span></div></div><a className="link-arrow" href="#book">Book with confidence →</a><div className="credential-line">LICENSED <span>·</span> INSURED <span>·</span> BACKGROUND CHECKED</div></div></div></section>
+    <section className="why" id="why-us"><div className="shell why-grid"><div className="fixture-art"><img src={asset('plumber-craftsmanship.png')} alt="Professional plumber carefully installing connections beneath a modern kitchen sink"/><div className="work-point point-one"><i/><span><b>Leak-free connection</b><small>Pressure tested before we leave</small></span></div><div className="work-point point-two"><i/><span><b>Code-compliant installation</b><small>Built safely and correctly</small></span></div><div className="work-point point-three"><i/><span><b>Work area protected</b><small>Respect for every home</small></span></div><div className="offer"><b>$49</b><span>Service call<br/><small>APPLIED TO COMPLETED REPAIR</small></span></div></div><div className="why-copy"><div className="eyebrow dark"><span/> THE SILVER STATE STANDARD</div><h2>Craftsmanship you can <em>feel.</em></h2><p className="lead">Straight answers. Respectful technicians. Work that&apos;s built to last.</p><div className="benefits"><div><b><BadgeDollarSign/></b><span><strong>Upfront pricing</strong><small>Know the price before work begins.</small></span></div><div><b><MapPin/></b><span><strong>Local experts</strong><small>Technicians who know Las Vegas homes.</small></span></div><div><b><ShieldCheck/></b><span><strong>Quality guaranteed</strong><small>Licensed, insured and backed by our workmanship promise.</small></span></div></div><a className="link-arrow" href="#book">Book with confidence →</a><div className="credential-line">LICENSED <span>·</span> INSURED <span>·</span> BACKGROUND CHECKED</div></div></div></section>
 
     <section className="diagnostic"><div className="shell diagnostic-grid"><div><div className="eyebrow"><span/> START WITH THE SYMPTOM</div><h2>What&apos;s happening<br/>in your <em>home?</em></h2><p>Choose what you&apos;re experiencing. We&apos;ll point you toward the right expert.</p></div><div className="issue-panel"><div className="issue-buttons">{Object.keys(issues).map(x=><button key={x} onMouseEnter={()=>setIssue(x)} onFocus={()=>setIssue(x)} onClick={()=>setIssue(x)} className={issue===x?'active':''}>{x}<span>→</span></button>)}</div><div className="diagnosis" aria-live="polite"><div className="diagnosis-photo"><img key={issues[issue].image} src={issues[issue].image} alt=""/><div className="photo-status"><i/> LIVE SERVICE MATCH</div></div><div className="diagnosis-copy"><small>RECOMMENDED SERVICE</small><h3>{issues[issue].service}</h3><p>{issues[issue].detail}</p><a className="button" href="#book">Schedule this service →</a></div></div></div></div></section>
 
